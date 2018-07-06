@@ -28,8 +28,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-APP_ID = '20180706000183232'
-SECRET_KEY = '4Ay350mc66H_h_TyNYpZ'
+
 API_URL = '/api/trans/vip/translate'
 Q = 'apple'
 FROM_LANGUAGE = 'zh'
