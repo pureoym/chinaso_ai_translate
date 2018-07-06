@@ -18,8 +18,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
-from flask import Flask
+from flask import Flask, request, Response
+import json
+
+import utils
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def home_page():
@@ -27,7 +32,21 @@ def home_page():
     home page
     :return:
     """
-    return 'hello world'
+    return '测试句子一。'
+
+
+@app.route('/translate', methods=['GET', 'POST'])
+def translate():
+    if request.method == 'POST':
+        return 'post method'
+    else:
+        input_text = request.args.get('input')
+        output_text = utils.translate(input_text)
+        json_data = {'result': 1, 'data': {'input': input_text, 'output': output_text}}
+        content = json.dumps(json_data, ensure_ascii=False)
+        resp = Response(content)
+        return resp
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
