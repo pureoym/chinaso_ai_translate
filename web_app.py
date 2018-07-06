@@ -23,6 +23,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_page():
+    """
+    home page
+    :return:
+    """
     return 'hello world'
 
 if __name__ == '__main__':
