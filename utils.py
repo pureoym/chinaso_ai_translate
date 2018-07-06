@@ -22,13 +22,15 @@ import httplib
 import md5
 import urllib
 import random
+import json
 
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-
+APP_ID = '20180706000183232'
+SECRET_KEY = '4Ay350mc66H_h_TyNYpZ'
 API_URL = '/api/trans/vip/translate'
 Q = 'apple'
 FROM_LANGUAGE = 'zh'
@@ -39,7 +41,7 @@ SALT = random.randint(32768, 65536)
 def translate(input_text):
     httpClient = None
     input_text = input_text.encode('utf-8')
-    sign = APP_ID1 + input_text + str(SALT) + SECRET_KEY
+    sign = APP_ID + input_text + str(SALT) + SECRET_KEY
     m1 = md5.new()
     m1.update(sign)
     sign = m1.hexdigest()
@@ -54,7 +56,8 @@ def translate(input_text):
 
         # response是HTTPResponse对象
         response = httpClient.getresponse()
-        result = response.read()
+        resp = response.read()
+        result = json.loads(resp).get("trans_result")[0].get("dst")
     except Exception, e:
         print e
     finally:
