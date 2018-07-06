@@ -39,7 +39,7 @@ SALT = random.randint(32768, 65536)
 def translate(input_text):
     httpClient = None
     input_text = input_text.encode('utf-8')
-    sign = APP_ID + input_text + str(SALT) + SECRET_KEY
+    sign = APP_ID1 + input_text + str(SALT) + SECRET_KEY
     m1 = md5.new()
     m1.update(sign)
     sign = m1.hexdigest()
