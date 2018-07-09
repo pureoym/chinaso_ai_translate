@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 import json
 
 import utils
@@ -26,13 +26,14 @@ import utils
 app = Flask(__name__)
 
 
-@app.route('/')
-def home_page():
+@app.route('/test')
+@app.route('/test/<name>')
+def test_page(name=None):
     """
     home page
     :return:
     """
-    return '测试句子一。'
+    return render_template('hello.html', name=name)
 
 
 @app.route('/translate', methods=['GET', 'POST'])
@@ -49,4 +50,4 @@ def translate():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=8787)
