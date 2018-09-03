@@ -69,10 +69,6 @@ def translate(input_text):
 
 def translate_muti_language(input_text, from_language, to_language):
     httpClient = None
-    print from_language
-    print to_language
-    # if from_language == 'zh':
-    #     print 'translate_muti_language: found from_language = cn'
     input_text = input_text.encode('utf-8')
     sign = APP_ID + input_text + str(SALT) + SECRET_KEY
     m1 = md5.new()
