@@ -45,6 +45,7 @@ white_list = {'朋友多了 路才好走': 'More friends, more opportunities.',
               '不驰于空想 不骛于虚声 一步一个脚印 踏踏实实干好工作': 'we have to avoid the distractions of unsubstantial ideas and superficial fame, take one step at a time, and approach our work with a firm footing.',
               '不驰于空想 不鹜于虚声 一步一个脚印 踏踏实实做好工作': 'we have to avoid the distractions of unsubstantial ideas and superficial fame, take one step at a time, and approach our work with a firm footing.'}
 
+
 def translate(input_text):
     """
     中文翻译成英文
