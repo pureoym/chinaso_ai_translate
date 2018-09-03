@@ -50,7 +50,7 @@ def translate():
 
 
 @app.route('/translatemutilanguage', methods=['GET', 'POST'])
-def translate():
+def translatemutilanguage():
     if request.method == 'POST':
         return 'post method'
     else:
