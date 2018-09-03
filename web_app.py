@@ -49,8 +49,8 @@ def translate():
         return resp
 
 
-@app.route('/translatemutilanguage', methods=['GET', 'POST'])
-def translatemutilanguage():
+@app.route('/translate/mutilanguage', methods=['GET', 'POST'])
+def translate_muti_language():
     if request.method == 'POST':
         return 'post method'
     else:
