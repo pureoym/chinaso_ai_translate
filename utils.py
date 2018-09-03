@@ -67,7 +67,7 @@ def translate(input_text):
     return result
 
 
-def translate2(input_text, from_language, to_language):
+def translate_muti_language(input_text, from_language, to_language):
     httpClient = None
     if from_language == 'ch':
         input_text = input_text.encode('utf-8')

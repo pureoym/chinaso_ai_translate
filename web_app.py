@@ -49,7 +49,7 @@ def translate():
         return resp
 
 
-@app.route('/translate2', methods=['GET', 'POST'])
+@app.route('/translatemutilanguage', methods=['GET', 'POST'])
 def translate():
     if request.method == 'POST':
         return 'post method'
@@ -57,7 +57,7 @@ def translate():
         input_text = request.args.get('input')
         from_language = request.args.get('from')
         to_language = request.args.get('to')
-        output_text = utils.translate2(input_text, from_language, to_language)
+        output_text = utils.translate_muti_language(input_text, from_language, to_language)
         json_data = {'result': 1, 'data': {'input': input_text, 'output': output_text}}
         content = json.dumps(json_data, ensure_ascii=False)
         resp = Response(content)
