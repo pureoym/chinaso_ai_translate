@@ -98,6 +98,8 @@ def preproces(input_text):
     output_text = input_text.replace(',', ' ').replace('，', ' ') \
         .replace('.', ' ').replace('。', ' ') \
         .replace('!', ' ').replace('！', ' ') \
+        .replace('、', ' ') \
+        .replace(':', ' ').replace('：', ' ') \
         .replace('?', ' ').replace('？', ' ').strip()
     return output_text
 
