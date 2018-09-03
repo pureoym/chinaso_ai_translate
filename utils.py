@@ -67,31 +67,31 @@ def translate(input_text):
     return result
 
 
-def translate2(input_text, from_language, to_language):
-    httpClient = None
-    if from_language == 'ch':
-        input_text = input_text.encode('utf-8')
-    sign = APP_ID + input_text + str(SALT) + SECRET_KEY
-    m1 = md5.new()
-    m1.update(sign)
-    sign = m1.hexdigest()
-    url = API_URL + '?appid=' + APP_ID + '&q=' + urllib.quote(input_text) + \
-          '&from=' + from_language + '&to=' + to_language + '&salt=' + str(SALT) \
-          + '&sign=' + sign
-
-    result = ''
-    try:
-        httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
-        httpClient.request('GET', url)
-
-        # response是HTTPResponse对象
-        response = httpClient.getresponse()
-        resp = response.read()
-        result = json.loads(resp).get("trans_result")[0].get("dst")
-    except Exception, e:
-        print e
-    finally:
-        if httpClient:
-            httpClient.close()
-
-    return result
+# def translate2(input_text, from_language, to_language):
+#     httpClient = None
+#     if from_language == 'ch':
+#         input_text = input_text.encode('utf-8')
+#     sign = APP_ID + input_text + str(SALT) + SECRET_KEY
+#     m1 = md5.new()
+#     m1.update(sign)
+#     sign = m1.hexdigest()
+#     url = API_URL + '?appid=' + APP_ID + '&q=' + urllib.quote(input_text) + \
+#           '&from=' + from_language + '&to=' + to_language + '&salt=' + str(SALT) \
+#           + '&sign=' + sign
+#
+#     result = ''
+#     try:
+#         httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
+#         httpClient.request('GET', url)
+#
+#         # response是HTTPResponse对象
+#         response = httpClient.getresponse()
+#         resp = response.read()
+#         result = json.loads(resp).get("trans_result")[0].get("dst")
+#     except Exception, e:
+#         print e
+#     finally:
+#         if httpClient:
+#             httpClient.close()
+#
+#     return result
