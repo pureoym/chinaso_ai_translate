@@ -24,7 +24,7 @@ import urllib
 import random
 import json
 import sys
-import re
+# import re
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -37,7 +37,12 @@ FROM_LANGUAGE = 'zh'
 TO_LANGUAGE = 'en'
 SALT = random.randint(32768, 65536)
 
-white_list = {'朋友多了 路才好走': 'More friends, more opportunities.'}
+white_list = {'朋友多了 路才好走': 'More friends, more opportunities.',
+              '有路才能人畅其行 物畅其流': 'With roads in place, people and goods can flow.',
+              '要幸福就要奋斗': 'Happiness comes out of arduous work.',
+              '逢山开路 遇水架桥 将改革进行到底': 'we should surmount all obstacles to carry the reform further to its ultimate triumph.',
+              '天下一家': 'the world being one family',
+              '不驰于空想 不骛于虚声 一步一个脚印 踏踏实实干好工作': 'we have to avoid the distractions of unsubstantial ideas and superficial fame, take one step at a time, and approach our work with a firm footing.'}
 
 
 def translate(input_text):
@@ -61,6 +66,7 @@ def translate(input_text):
     # 增加白名单，如果在白名单中，直接翻译，返回结果
     preprocessed_input = preproces(input_text)
     if preprocessed_input in white_list:
+        print '输入：' + preprocessed_input + '在白名单中'
         result = white_list[preprocessed_input]
         return result
 
@@ -88,7 +94,11 @@ def preproces(input_text):
     :param input_text:
     :return:
     """
-    output_text = re.sub(r'[\,\.\!\?！，。？、]+', ' ', input_text).strip()
+    # output_text = re.sub(r'[\,\.\!\?！，。？、]+', ' ', input_text).strip()
+    output_text = input_text.replace(',', ' ').replace('，', ' ') \
+        .replace('.', ' ').replace('。', ' ') \
+        .replace('!', ' ').replace('！', ' ') \
+        .replace('?', ' ').replace('？', ' ').strip()
     return output_text
 
 
@@ -138,5 +148,5 @@ def translate_muti_language(input_text, from_language, to_language):
 
 
 if __name__ == '__main__':
-    input_text = '   朋友多了,路才好走。'
+    input_text = '逢山开路，遇水架桥，将改革进行到底'
     print("====" + preproces(input_text) + "====")
