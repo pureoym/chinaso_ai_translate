@@ -23,22 +23,29 @@ import md5
 import urllib
 import random
 import json
-
 import sys
+import re
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-APP_ID = '123'
-SECRET_KEY = '123'
+APP_ID = '20180706000183232'
+SECRET_KEY = '4Ay350mc66H_h_TyNYpZ'
 API_URL = '/api/trans/vip/translate'
 Q = 'apple'
 FROM_LANGUAGE = 'zh'
 TO_LANGUAGE = 'en'
 SALT = random.randint(32768, 65536)
 
+white_list = {'朋友多了 路才好走': 'More friends, more opportunities.'}
+
 
 def translate(input_text):
+    """
+    中文翻译成英文
+    :param input_text:
+    :return:
+    """
     httpClient = None
     input_text = input_text.encode('utf-8')
     sign = APP_ID + input_text + str(SALT) + SECRET_KEY
@@ -50,6 +57,14 @@ def translate(input_text):
           + '&sign=' + sign
 
     result = ''
+
+    # 增加白名单，直接翻译
+    preprocessed_input = preproces(input_text)
+    if preprocessed_input in white_list:
+        result = white_list[preprocessed_input]
+        return result
+
+    # 如果不在白名单中，则调用翻译接口
     try:
         httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
         httpClient.request('GET', url)
@@ -67,7 +82,24 @@ def translate(input_text):
     return result
 
 
+def preproces(input_text):
+    """
+    预处理，将正文中的标点变成空格，再去除首尾空格
+    :param input_text:
+    :return:
+    """
+    output_text = re.sub(r'[\,\.\!\?！，。？、]+', ' ', input_text).strip()
+    return output_text
+
+
 def translate_muti_language(input_text, from_language, to_language):
+    """
+    多语言翻译
+    :param input_text: 
+    :param from_language: 
+    :param to_language: 
+    :return: 
+    """
     httpClient = None
     input_text = input_text.encode('utf-8')
     sign = APP_ID + input_text + str(SALT) + SECRET_KEY
@@ -94,3 +126,8 @@ def translate_muti_language(input_text, from_language, to_language):
             httpClient.close()
 
     return result
+
+
+if __name__ == '__main__':
+    input_text = '   朋友多了,路才好走。'
+    print("====" + preproces(input_text) + "====")
