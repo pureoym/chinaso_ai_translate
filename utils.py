@@ -58,7 +58,7 @@ def translate(input_text):
 
     result = ''
 
-    # 增加白名单，直接翻译
+    # 增加白名单，如果在白名单中，直接翻译，返回结果
     preprocessed_input = preproces(input_text)
     if preprocessed_input in white_list:
         result = white_list[preprocessed_input]
@@ -111,6 +111,15 @@ def translate_muti_language(input_text, from_language, to_language):
           + '&sign=' + sign
 
     result = ''
+
+    # 对于中翻英的翻译，增加白名单处理，直接翻译，返回结果
+    if from_language == 'zh' and to_language == 'en':
+        preprocessed_input = preproces(input_text)
+        if preprocessed_input in white_list:
+            result = white_list[preprocessed_input]
+            return result
+
+    # 否则，调用接口翻译
     try:
         httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
         httpClient.request('GET', url)
