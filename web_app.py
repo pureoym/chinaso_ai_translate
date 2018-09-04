@@ -38,9 +38,19 @@ def test_page(name=None):
 
 @app.route('/translate', methods=['GET', 'POST'])
 def translate():
-    if request.method == 'POST':
-        return 'post method'
-    else:
+    """
+    翻译页面，支持GET,POST
+    输入参数：input=输入文本
+    :return:
+    """
+    if request.method == 'POST':    # POST方法
+        input_text = request.form['input']
+        output_text = utils.translate(input_text)
+        json_data = {'result': 1, 'data': {'input': input_text, 'output': output_text}}
+        content = json.dumps(json_data, ensure_ascii=False)
+        resp = Response(content)
+        return resp
+    else:   # GET方法
         input_text = request.args.get('input')
         output_text = utils.translate(input_text)
         json_data = {'result': 1, 'data': {'input': input_text, 'output': output_text}}
@@ -51,9 +61,21 @@ def translate():
 
 @app.route('/translate/mutilanguage', methods=['GET', 'POST'])
 def translate_muti_language():
-    if request.method == 'POST':
-        return 'post method'
-    else:
+    """
+    多语言翻译，支持POST,GET
+    输入参数：input=输入文本，from=源语言代码，to=目标语言代码
+    :return:
+    """
+    if request.method == 'POST':    # POST方法
+        input_text = request.form['input']
+        from_language = request.form['from']
+        to_language = request.form['to']
+        output_text = utils.translate_muti_language(input_text, from_language, to_language)
+        json_data = {'result': 1, 'data': {'input': input_text, 'output': output_text}}
+        content = json.dumps(json_data, ensure_ascii=False)
+        resp = Response(content)
+        return resp
+    else:   # GET方法
         input_text = request.args.get('input')
         from_language = request.args.get('from')
         to_language = request.args.get('to')
