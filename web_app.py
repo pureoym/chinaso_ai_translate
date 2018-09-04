@@ -67,6 +67,7 @@ def translate_muti_language():
     :return:
     """
     if request.method == 'POST':    # POST方法
+        app.logger.debug('/translate/mutilanguage POST')
         input_text = request.form['input']
         from_language = request.form['from']
         to_language = request.form['to']
@@ -76,6 +77,7 @@ def translate_muti_language():
         resp = Response(content)
         return resp
     else:   # GET方法
+        app.logger.debug('/translate/mutilanguage GET')
         input_text = request.args.get('input')
         from_language = request.args.get('from')
         to_language = request.args.get('to')
